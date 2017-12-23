@@ -6,6 +6,7 @@ import urllib.request
 import subprocess
 
 import token_key
+
 channel_secret = token_key.channel_secret
 channel_access_token = token_key.channel_access_token
 user_id = token_key.userId
@@ -45,7 +46,8 @@ if __name__=='__main__':
     argvs = sys.argv
     if len(argvs) < 2:
         print('How to use this script??')
-    cmd = ''.join(argvs[1:])
+    cmd = ' '.join(argvs[1:])
     os.system(cmd)
-    post_to_line(message=f'"{cmd}" is finished now.')
+    message = f'{cmd} の処理がおわったよぉ'
+    post_to_line(message=message)
     
