@@ -53,7 +53,7 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 def text2command(text):
-    text = test.strip()
+    text = text.strip()
     message = ''
     if 'DROP' in text:
         print("in DROP")
