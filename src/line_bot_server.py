@@ -31,11 +31,13 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-from check_var_log import reject_ssh
-from check_var_log import allow_ssh
+from monitor_var_log import (
+    reject_ssh, allow_ssh
+)
 import getting_pc_info
 import token_key
 import notification
+import message_dicts
 
 app = Flask(__name__)
 
@@ -67,14 +69,22 @@ def text_processing(text):
         ip = text.split()[1]
         allow_ssh(ip)
         message = f'accept {ip}'
-    elif 'MEMORY' == text:
-        message = execute_command.memory()
-    elif 'CPU' == text:
-        message = execute_command.cpu()
+    elif 'TEMP' in text or '温度' in text:
+        stage = getting_pc_info.measure_temp()
+        message = message_dicts.temp_info_message_dict[stage]
+    elif '電圧' in text or 'エコ' in text:
+        stage = getting_pc_info.measure_volts()
+        message = message_dicts.volts_info_message_dict[stage]
+    elif 'MEMORY' in text or 'メモリ' in text:
+        stage = getting_pc_info.memory_info()
+        message = message_dicts.memory_info_message_dict[stage]
+    elif 'CPU' in text:
+        stage = getting_pc_info.cpu_used()
+        message = message_dicts.cpu_info_message_dict[stage]
     elif 'どう？' == text:
-        message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
+        message = '快適ですよ！'
     elif 'おはよう' in text:
-        post_line.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
+        notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
     print(f'message:::{message}, type:::{type(message)}')
     return message
 

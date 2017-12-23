@@ -3,6 +3,8 @@ import subprocess
 import time
 import re
 
+from notification import post_to_line
+from message_dicts import notification_dict
 
 def get_num(word):
     m = re.search(r'([0-9\.]+)', word)
@@ -42,7 +44,7 @@ def measure_temp():
 def measure_volts():
     stage = 3
     output = subprocess.getoutput('vcgencmd measure_volts')
-    volts = get_num(outout)
+    volts = get_num(output)
     if volts > 1.5:
         stage = 3
     elif volts > 1.3:
@@ -80,5 +82,21 @@ def access():
 
 if __name__=='__main__':
     while True:
-
+        message = ''
+        tmp = cpu_used()
+        if cpu_stage == 3 and tmp < 3:
+            message = notification_dict['cpu']
+        cpu_stage = tmp
+        tmp = memory_info()
+        if memory_stage == 3 and tmp < 3:
+            message = notification_dict['memory']
+        memory_stage = tmp
+        tmp = measure_volts()
+        if volts_stage < 3 and tmp == 3:
+            message = notification_dict['volts']
+        tmp = measure_temp()
+        if temp_stage < 3 and tmp == 3:
+            message = notification_dict['temp']
+        if message:
+            post_to_line(message=message)
         time.sleep(10)
