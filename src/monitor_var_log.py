@@ -8,6 +8,7 @@ channel_access_token = token_key.channel_access_token
 user_id = token_key.userId
 
 def read_file_continue():
+    in_if_times = 0
     while True:
         line = sys.stdin.readline()
         print(line, end='')
