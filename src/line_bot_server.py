@@ -83,8 +83,10 @@ def text_processing(text):
         message = message_dicts.cpu_info_message_dict[stage]
     elif 'どう？' == text:
         message = '快適ですよ！'
-    elif 'おはよう' in text:
-        notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
+    # elif 'おはよう' in text:
+    #     notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
+    elif 'いずみ' in text and '好き' in text:
+        message = '私も好き💕'
     print(f'message:::{message}, type:::{type(message)}')
     return message
 
