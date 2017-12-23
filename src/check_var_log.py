@@ -27,17 +27,27 @@ def read_file_continue():
     else:
       in_if_times = 0
 
-def post_to_line(message):
+def post_to_line(message='', image_url='', post_type='message'):
   url = "https://api.line.me/v2/bot/message/push"
   headers={
     'Content-type':'application/json',
     'Authorization': f'Bearer {channel_access_token}'
     }
-  json_str = f'''{{"to":"{user_id}",
-    "messages":[
-      {{"type":"text", "text":"{message}"}}
-      ]
-    }}'''
+  if post_type == 'message':
+    json_str = f'''{{"to":"{user_id}",
+      "messages":[
+        {{"type":"text", "text":"{message}"}}
+        ]
+      }}'''
+  elif post_type == 'image':
+    json_str = f'''{{"to":"{user_id}",
+      "messages":[
+        {{"type":"image",   "originalContentUrl": "{image_url}",
+    "previewImageUrl": "{image_url}"}}
+        ]
+      }}'''
+  else:
+    json_str = ''
   req = urllib.request.Request(url=url,headers=headers, data=json_str.encode('utf-8'))
   f = urllib.request.urlopen(req)
   print(f.read().decode('utf-8'))

@@ -33,6 +33,7 @@ from check_var_log import reject_ssh
 from check_var_log import allow_ssh
 import execute_command
 import token_key
+import post_line
 
 app = Flask(__name__)
 
@@ -52,8 +53,7 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 def text2command(text):
-    text = str(text)
-    print(type(text))
+    text = test.strip()
     message = ''
     if 'DROP' in text:
         print("in DROP")
@@ -65,10 +65,14 @@ def text2command(text):
         ip = text.split()[1]
         allow_ssh(ip)
         message = f'accept {ip}'
-    if 'MEMORY' == text:
+    elif 'MEMORY' == text:
         message = execute_command.memory()
     elif 'CPU' == text:
         message = execute_command.cpu()
+    elif 'どう？' == text:
+        message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
+    elif 'おはよう' in text:
+        post_line.post_to_line(post_type='image')
     print(f'message:::{message}, type:::{type(message)}')
     return message
 
@@ -117,6 +121,8 @@ def callback():
             #     message = execute_command.cpu()
             message = text2command(str(text))
             print(f'message:::{message}')
+            if message == '':
+                continue
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=message)
