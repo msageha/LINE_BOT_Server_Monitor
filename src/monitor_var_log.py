@@ -20,7 +20,7 @@ def read_file_continue():
         if 'Failed password' in line:
             in_if_times += 1
             if in_if_times == 3:
-                message = f'{from_ip}から，{time} に，攻撃されちゃったよぉ．．．\n速く助けて！！'
+                message = f'{from_ip}から，{time} に，攻撃されちゃったよぉ．．．速く助けて！！'
                 print(message)
                 post_to_line(message=message)
                 in_if_times = 0
