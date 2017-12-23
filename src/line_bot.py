@@ -72,7 +72,7 @@ def text2command(text):
     elif 'どう？' == text:
         message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
     elif 'おはよう' in text:
-        post_line.post_to_line(post_type='image')
+        post_line.post_to_line(image_url=r'https://rr.img.naver.jp/mig?src=http%3A%2F%2Fimgcc.naver.jp%2Fkaze%2Fmission%2FUSER%2F20160706%2F72%2F7057202%2F105%2F437x351x265440b3a26d29a3f7a9ae41.jpg%2F300%2F600&twidth=300&theight=600&qlt=80&res_format=jpg&op=r', post_type='image')
     print(f'message:::{message}, type:::{type(message)}')
     return message
 
@@ -105,21 +105,7 @@ def callback():
         message = 'unko'
         if event.message.text:
             text = event.message.text
-            # if 'DROP' in text:
-            #     print("in DROP")
-            #     print(text)
-            #     ip = text.split()[1]
-            #     reject_ssh(ip)
-            #     message = f'drop {ip}'
-            # elif 'ACCEPT' in text:
-            #     ip = text.split()[1]
-            #     allow_ssh(ip)
-            #     message = f'accept {ip}'
-            # elif 'MEMORY' == text:
-            #     message = execute_command.memory()
-            # elif 'CPU' == text:
-            #     message = execute_command.cpu()
-            # message = text2command(str(text))
+            message = text2command(str(text))
             print(f'message:::{message}')
             if message == '':
                 continue
