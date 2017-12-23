@@ -69,13 +69,13 @@ def text_processing(text):
     if '守' in text:
         ip = get_num(text)
         if ip:
-            continue
+            return ''
         reject_ssh(ip)
         message = f'{ip} から，守ってくれてありがとー'
     elif '許可' in text:
         ip = get_num(text)
         if ip:
-            continue
+            return ''
         allow_ssh(ip)
         message = f'しょうがないな～．\n{ip}の通信許可してあげたよ'
     elif 'TEMP' in text or '温度' in text:
