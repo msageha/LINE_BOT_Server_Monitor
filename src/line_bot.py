@@ -72,7 +72,7 @@ def text2command(text):
     elif 'どう？' == text:
         message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
     elif 'おはよう' in text:
-        post_line.post_to_line(image_url='http://livedoor.4.blogimg.jp/jin115/imgs/7/d/7dbd8064.jpg', post_type='image')
+        post_line.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
     print(f'message:::{message}, type:::{type(message)}')
     return message
 

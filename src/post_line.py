@@ -30,6 +30,7 @@ def post_to_line(message='', image_url='', post_type='message'):
     "previewImageUrl": "{image_url}"}}
         ]
       }}'''
+    print(post_type)
   else:
     json_str = ''
   req = urllib.request.Request(url=url,headers=headers, data=json_str.encode('utf-8'))
