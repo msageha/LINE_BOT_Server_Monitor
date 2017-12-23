@@ -53,27 +53,27 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 def text2command(text):
-    text = text.strip()
-    message = ''
-    if 'DROP' in text:
-        print("in DROP")
-        print(text)
-        ip = text.split()[1]
-        reject_ssh(ip)
-        message = f'drop {ip}'
-    elif 'ACCEPT' in text:
-        ip = text.split()[1]
-        allow_ssh(ip)
-        message = f'accept {ip}'
-    elif 'MEMORY' == text:
-        message = execute_command.memory()
-    elif 'CPU' == text:
-        message = execute_command.cpu()
-    elif 'どう？' == text:
-        message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
-    elif 'おはよう' in text:
-        post_line.post_to_line(post_type='image')
-    print(f'message:::{message}, type:::{type(message)}')
+    # text = text.strip()
+    # message = ''
+    # if 'DROP' in text:
+    #     print("in DROP")
+    #     print(text)
+    #     ip = text.split()[1]
+    #     reject_ssh(ip)
+    #     message = f'drop {ip}'
+    # elif 'ACCEPT' in text:
+    #     ip = text.split()[1]
+    #     allow_ssh(ip)
+    #     message = f'accept {ip}'
+    # elif 'MEMORY' == text:
+    #     message = execute_command.memory()
+    # elif 'CPU' == text:
+    #     message = execute_command.cpu()
+    # elif 'どう？' == text:
+    #     message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
+    # elif 'おはよう' in text:
+    #     post_line.post_to_line(post_type='image')
+    # print(f'message:::{message}, type:::{type(message)}')
     return message
 
 @app.route("/")
@@ -104,25 +104,28 @@ def callback():
         message = str(event)
         message = 'unko'
         if event.message.text:
-            text = event.message.text
-            # if 'DROP' in text:
-            #     print("in DROP")
-            #     print(text)
-            #     ip = text.split()[1]
-            #     reject_ssh(ip)
-            #     message = f'drop {ip}'
-            # elif 'ACCEPT' in text:
-            #     ip = text.split()[1]
-            #     allow_ssh(ip)
-            #     message = f'accept {ip}'
-            # elif 'MEMORY' == text:
-            #     message = execute_command.memory()
-            # elif 'CPU' == text:
-            #     message = execute_command.cpu()
-            message = text2command(str(text))
-            print(f'message:::{message}')
-            if message == '':
+            text = event.message.text.strip()
+            message = ''
+            if 'DROP' in text:
+                print("in DROP")
+                print(text)
+                ip = text.split()[1]
+                reject_ssh(ip)
+                message = f'drop {ip}'
+            elif 'ACCEPT' in text:
+                ip = text.split()[1]
+                allow_ssh(ip)
+                message = f'accept {ip}'
+            elif 'MEMORY' == text:
+                message = execute_command.memory()
+            elif 'CPU' == text:
+                message = execute_command.cpu()
+            elif 'どう？' == text:
+                message = f'快適ですよ！\n{execute_command.cpu()}\n{execute_command.memory()}'
+            elif 'おはよう' in text:
+                post_line.post_to_line(post_type='image')
                 continue
+            print(f'message:::{message}')
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=message)
