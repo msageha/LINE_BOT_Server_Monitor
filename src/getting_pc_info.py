@@ -83,6 +83,10 @@ def access():
     # net = psutil.net_connections()
 
 if __name__=='__main__':
+    cpu_stage = 0
+    memory_stage = 0
+    volts_stage = 0
+    temp_stage = 0
     while True:
         message = ''
         tmp = cpu_used()
