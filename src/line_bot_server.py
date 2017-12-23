@@ -86,7 +86,7 @@ def text_processing(text):
     # elif 'おはよう' in text:
     #     notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
     elif 'いずみ' in text and '好き' in text:
-        message = '私も好き💕'
+        message = '私も好き💕\nむろちゃん！'
     print(f'message:::{message}, type:::{type(message)}')
     return message
 
