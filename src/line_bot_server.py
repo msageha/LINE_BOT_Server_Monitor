@@ -59,19 +59,23 @@ parser = WebhookParser(channel_secret)
 def get_num(word):
     m = re.search(r'([0-9\.]+)', word)
     if m:
-        return float(m.group())
+        return m.group()
     else:
-        return 0
+        return ''
 
 def text_processing(text):
     text = text.strip()
     message = ''
-    if '守ってあげる！' in text:
+    if '守' in text:
         ip = get_num(text)
+        if ip:
+            continue
         reject_ssh(ip)
         message = f'{ip} から，守ってくれてありがとー'
     elif '許可' in text:
         ip = get_num(text)
+        if ip:
+            continue
         allow_ssh(ip)
         message = f'しょうがないな～．\n{ip}の通信許可してあげたよ'
     elif 'TEMP' in text or '温度' in text:
