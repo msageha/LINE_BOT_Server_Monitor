@@ -9,7 +9,9 @@ from message_dicts import notification_dict
 def get_num(word):
     m = re.search(r'([0-9\.]+)', word)
     if m:
-        return m.group()
+        return float(m.group())
+    else:
+        return 0
 
 # 数値を小数点第1位で四捨五入して文字列に変換する
 # def roundstr(size):
