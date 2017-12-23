@@ -18,7 +18,9 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort
+from flask import (
+    Flask, request, abort
+)
 from linebot import (
     LineBotApi, WebhookParser
 )
@@ -31,9 +33,9 @@ from linebot.models import (
 
 from check_var_log import reject_ssh
 from check_var_log import allow_ssh
-import execute_command
+import getting_pc_info
 import token_key
-import post_line
+import notification
 
 app = Flask(__name__)
 
@@ -52,7 +54,7 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
-def text2command(text):
+def text_processing(text):
     text = text.strip()
     message = ''
     if 'DROP' in text:
@@ -104,8 +106,8 @@ def callback():
         message = str(event)
         message = 'unko'
         if event.message.text:
-            text = event.message.text
-            message = text2command(str(text))
+            text = event.message.text.strip()
+            message = text_processing(str(text))
             print(f'message:::{message}')
             if message == '':
                 continue

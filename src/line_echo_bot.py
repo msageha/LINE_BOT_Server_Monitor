@@ -18,7 +18,9 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort
+from flask import (
+    Flask, request, abort
+)
 from linebot import (
     LineBotApi, WebhookParser
 )
@@ -28,9 +30,6 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-
-from check_var_log import reject_ssh
-from check_var_log import allow_ssh
 
 app = Flask(__name__)
 import token_key
@@ -74,18 +73,8 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        message = str(event)
         if event.message.text:
-          if 'DROP' in event.message.text:
-            print("in DROP")
-            print(event.message.text)
-            ip = event.message.text.split()[1]
-            reject_ssh(ip)
-            message = f'reject {ip}'
-          elif 'ACCEPT' in event.message.text:
-            ip = event.message.text.split()[1]
-            allow_ssh(ip)
-            message = f'accept {ip}'
+            message = str(event.message.text)
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TextSendMessage(text=message)
