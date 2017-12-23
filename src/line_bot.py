@@ -55,16 +55,16 @@ def text2command(text):
     text = str(text)
     print(type(text))
     message = ''
-    # if 'DROP' in text:
-    #     print("in DROP")
-    #     print(text)
-    #     ip = text.split()[1]
-    #     reject_ssh(ip)
-    #     message = f'drop {ip}'
-    # elif 'ACCEPT' in text:
-    #     ip = text.split()[1]
-    #     allow_ssh(ip)
-    #     message = f'accept {ip}'
+    if 'DROP' in text:
+        print("in DROP")
+        print(text)
+        ip = text.split()[1]
+        reject_ssh(ip)
+        message = f'drop {ip}'
+    elif 'ACCEPT' in text:
+        ip = text.split()[1]
+        allow_ssh(ip)
+        message = f'accept {ip}'
     if 'MEMORY' == text:
         message = execute_command.memory()
     elif 'CPU' == text:
@@ -101,22 +101,21 @@ def callback():
         message = 'unko'
         if event.message.text:
             text = event.message.text
-            if 'DROP' in text:
-                print("in DROP")
-                print(text)
-                ip = text.split()[1]
-                reject_ssh(ip)
-                message = f'drop {ip}'
-            elif 'ACCEPT' in text:
-                ip = text.split()[1]
-                allow_ssh(ip)
-                message = f'accept {ip}'
-            elif 'MEMORY' == text:
-                message = execute_command.memory()
-            elif 'CPU' == text:
-                message = execute_command.cpu()
-            print(event.message.text)
-            # message = text2command(str(event.message.text))
+            # if 'DROP' in text:
+            #     print("in DROP")
+            #     print(text)
+            #     ip = text.split()[1]
+            #     reject_ssh(ip)
+            #     message = f'drop {ip}'
+            # elif 'ACCEPT' in text:
+            #     ip = text.split()[1]
+            #     allow_ssh(ip)
+            #     message = f'accept {ip}'
+            # elif 'MEMORY' == text:
+            #     message = execute_command.memory()
+            # elif 'CPU' == text:
+            #     message = execute_command.cpu()
+            message = text2command(str(text))
             print(f'message:::{message}')
             line_bot_api.reply_message(
                 event.reply_token,

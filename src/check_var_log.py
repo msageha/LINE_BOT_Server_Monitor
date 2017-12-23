@@ -2,11 +2,13 @@ import sys
 import os
 import http.client
 import urllib
+import urllib.request
 import subprocess
 
 import token_key
 channel_secret = token_key.channel_secret
 channel_access_token = token_key.channel_access_token
+user_id = token_key.userId
 
 def read_file_continue():
   while True:
@@ -31,7 +33,7 @@ def post_to_line(message):
     'Content-type':'application/json',
     'Authorization': f'Bearer {channel_access_token}'
     }
-  json_str = f'''{{"to":"{channel_secret}",
+  json_str = f'''{{"to":"{user_id}",
     "messages":[
       {{"type":"text", "text":"{message}"}}
       ]
