@@ -11,12 +11,12 @@
 #  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #  License for the specific language governing permissions and limitations
 #  under the License.
-
 from __future__ import unicode_literals
 
 import os
 import sys
 from argparse import ArgumentParser
+import re
 
 from flask import (
     Flask, request, abort
@@ -56,19 +56,24 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
+def get_num(word):
+    m = re.search(r'([0-9\.]+)', word)
+    if m:
+        return float(m.group())
+    else:
+        return 0
+
 def text_processing(text):
     text = text.strip()
     message = ''
-    if 'DROP' in text:
-        print("in DROP")
-        print(text)
-        ip = text.split()[1]
+    if '守ってあげる！' in text:
+        ip = get_num(text)
         reject_ssh(ip)
-        message = f'drop {ip}'
-    elif 'ACCEPT' in text:
-        ip = text.split()[1]
+        message = f'{ip} から，守ってくれてありがとー'
+    elif '許可' in text:
+        ip = get_num(text)
         allow_ssh(ip)
-        message = f'accept {ip}'
+        message = f'しょうがないな～．\n{ip}の通信許可してあげたよ'
     elif 'TEMP' in text or '温度' in text:
         stage = getting_pc_info.measure_temp()
         message = message_dicts.temp_info_message_dict[stage]
@@ -82,7 +87,7 @@ def text_processing(text):
         stage = getting_pc_info.cpu_used()
         message = message_dicts.cpu_info_message_dict[stage]
     elif 'どう？' == text:
-        message = '快適ですよ！'
+        message = '快適だよ！'
     # elif 'おはよう' in text:
     #     notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
     elif 'いずみ' in text and '好き' in text:
