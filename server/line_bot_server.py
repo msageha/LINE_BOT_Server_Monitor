@@ -34,10 +34,10 @@ from linebot.models import (
 from monitor_var_log import (
     reject_ssh, allow_ssh
 )
-import getting_pc_info
+# import getting_pc_info
 import token_key
-import notification
-import message_dicts
+# import notification
+# import message_dicts
 
 app = Flask(__name__)
 
@@ -56,46 +56,46 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
-def get_ip(word):
-    m = re.search(r'([0-9\.]+)', word)
-    if m:
-        return m.group()
-    else:
-        return ''
+# def get_ip(word):
+#     m = re.search(r'([0-9\.]+)', word)
+#     if m:
+#         return m.group()
+#     else:
+#         return ''
 
-def text_processing(text):
-    text = text.strip()
-    message = ''
-    if '守' in text:
-        ip = get_ip(text)
-        if ip:
-            return ''
-        reject_ssh(ip)
-        message = f'{ip} から，守ってくれてありがとー'
-    elif '許' in text:
-        ip = get_num(text)
-        if ip:
-            return ''
-        allow_ssh(ip)
-        message = f'しょうがないな～．\n{ip}の通信許可してあげたよ'
-    elif 'TEMP' in text or '温度' in text or '体温' in text:
-        stage = getting_pc_info.measure_temp()
-        message = message_dicts.temp_info_message_dict[stage]
-    elif '電圧' in text or 'エコ' in text:
-        stage = getting_pc_info.measure_volts()
-        message = message_dicts.volts_info_message_dict[stage]
-    elif 'MEMORY' in text or 'メモリ' in text:
-        stage = getting_pc_info.memory_info()
-        message = message_dicts.memory_info_message_dict[stage]
-    elif 'CPU' in text or '調子' in text:
-        stage = getting_pc_info.cpu_used()
-        message = message_dicts.cpu_info_message_dict[stage]
-    # elif 'おはよう' in text:
-    #     notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
-    elif 'いずみ' in text and '好き' in text:
-        message = '私も好き💕\nむろちゃん！'
-    print(f'message:::{message}, type:::{type(message)}')
-    return message
+# def text_processing(text):
+#     text = text.strip()
+#     message = ''
+#     if '守' in text:
+#         ip = get_ip(text)
+#         if ip:
+#             return ''
+#         reject_ssh(ip)
+#         message = f'{ip} から，守ってくれてありがとー'
+#     elif '許' in text:
+#         ip = get_num(text)
+#         if ip:
+#             return ''
+#         allow_ssh(ip)
+#         message = f'しょうがないな～．\n{ip}の通信許可してあげたよ'
+#     elif 'TEMP' in text or '温度' in text or '体温' in text:
+#         stage = getting_pc_info.measure_temp()
+#         message = message_dicts.temp_info_message_dict[stage]
+#     elif '電圧' in text or 'エコ' in text:
+#         stage = getting_pc_info.measure_volts()
+#         message = message_dicts.volts_info_message_dict[stage]
+#     elif 'MEMORY' in text or 'メモリ' in text:
+#         stage = getting_pc_info.memory_info()
+#         message = message_dicts.memory_info_message_dict[stage]
+#     elif 'CPU' in text or '調子' in text:
+#         stage = getting_pc_info.cpu_used()
+#         message = message_dicts.cpu_info_message_dict[stage]
+#     # elif 'おはよう' in text:
+#     #     notification.post_to_line(image_url='https://goo.gl/tJJDGR', post_type='image')
+#     elif 'いずみ' in text and '好き' in text:
+#         message = '私も好き💕\nむろちゃん！'
+#     print(f'message:::{message}, type:::{type(message)}')
+#     return message
 
 @app.route("/")
 def hello_world():
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     arg_parser = ArgumentParser(
         usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
     )
-    arg_parser.add_argument('-p', '--port', default=8000, help='port')
+    arg_parser.add_argument('-p', '--port', default=5000, help='port')
     arg_parser.add_argument('-d', '--debug', default=False, help='debug')
     options = arg_parser.parse_args()
 
