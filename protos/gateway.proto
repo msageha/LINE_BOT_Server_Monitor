@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package gateway;
+
+service Monitor {
+  // Sends a greeting
+  rpc CheckServer (LineBotServerRequest) returns (MonitorReply) {}
+}
+
+message LineBotServerRequest {
+  string type = 1;
+  int32 key = 2;
+}
+
+message MonitorReply {
+  string message = 1;
+  int32 key = 2;
+}
