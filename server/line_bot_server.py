@@ -46,7 +46,7 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
-predict = Predict(model_file='2018-02-22 20:48:27_epoch-16.npz', gpu=0)
+predict = Predict(model_file='model/2018-02-22 20:48:27_epoch-16.npz', gpu=0)
 
 @app.route("/")
 def hello_world():
