@@ -110,29 +110,35 @@ def callback():
     app.logger.info("Request body: " + body)
 
     # parse webhook body
+    # try:
+    #     events = parser.parse(body, signature)
+    # except InvalidSignatureError:
+    #     abort(400)
+
+    # if event is MessageEvent and message is TextMessage, then echo text
+    # for event in events:
+    #     print('-------------')
+    #     if not isinstance(event, MessageEvent):
+    #         continue
+    #     if not isinstance(event.message, TextMessage):
+    #         continue
+    #     message = str(event)
+    #     if event.message.text:
+    #         text = event.message.text.strip()
+    #         message = text_processing(str(text))
+    #         print(f'message:::{message}')
+    #         if message == '':
+    #             continue
+    #         line_bot_api.reply_message(
+    #             event.reply_token,
+    #             TextSendMessage(text=message)
+    #         )
+
     try:
-        events = parser.parse(body, signature)
+        handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
 
-    # if event is MessageEvent and message is TextMessage, then echo text
-    for event in events:
-        print('-------------')
-        if not isinstance(event, MessageEvent):
-            continue
-        if not isinstance(event.message, TextMessage):
-            continue
-        message = str(event)
-        if event.message.text:
-            text = event.message.text.strip()
-            message = text_processing(str(text))
-            print(f'message:::{message}')
-            if message == '':
-                continue
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=message)
-            )
     return 'OK'
 
 if __name__ == "__main__":
