@@ -11,7 +11,7 @@ class MessageProcess:
 
     def __call__(self, user_id, text):
         if not self.message_type_dict.get(user_id):
-            self.message_type_dict[user_id] = MessageType(user_id, '')
+            self.message_type_dict[user_id] = MessageType(user_id, '', 0)
         message_type = self.message_type_dict[user_id](text)
         print(message_type)
         if 'info' == message_type:
