@@ -14,7 +14,7 @@ def read_file_continue():
                 if failed_continue_times == 2:
                     user_name = line.split()[8]
                     from_ip = line.split()[10]
-                    text = f'{from_ip} が{user_name}の認証失敗したよ'
+                    text = f'{from_ip}が{user_name}の認証失敗したよ'
                     print(text)
                     request_message.send_message(text)
             else:

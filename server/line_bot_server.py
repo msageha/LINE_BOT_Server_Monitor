@@ -65,6 +65,7 @@ def hello_world():
 def sent_message():
     body = request.get_data().decode('utf8')
     message, user_id = extract_message_user_id(body)
+    print(message)
     url = "https://api.line.me/v2/bot/message/push"
     headers={
         'Content-type':'application/json',
