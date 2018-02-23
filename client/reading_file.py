@@ -8,8 +8,7 @@ def read_file_continue():
         # print(line, end='')
         #Oct  8 09:08:25 raspberrypi sshd[10358]: Failed password for root from 186.42.238.101 port 38352 ssh2
         if 'sshd' in line:
-            print(line)
-            if 'Failed password' in line:
+            if 'Failed' in line:
                 failed_continue_times += 1
                 if failed_continue_times == 2:
                     if len(line.split()) < 14:
@@ -20,7 +19,7 @@ def read_file_continue():
                         request_message.send_message(text)
             else:
                 failed_continue_times = 0
-            if 'Accepted password' in line:
+            if 'Accepted' in line:
                 if len(line.split()) < 14:
                     user_name = line.split()[8]
                     from_ip = line.split()[10]
