@@ -13,6 +13,7 @@ class MessageProcess:
         if not self.message_type_dict.get(user_id):
             self.message_type_dict[user_id] = MessageType(user_id, '', 0)
         message_type = self.message_type_dict[user_id](text)
+        print(f'MessageProcess_call_text: {text}')
         print(message_type)
         if 'info' == message_type:
             key, response_dict = monitor_grpc_client.run('info', message_type.host)
@@ -55,6 +56,7 @@ class MessageType:
         info_list = ['状態', '調子', '大丈夫', '様子']
         certificate_list = ['登録']
         cancell_list = ['解除', '削除']
+        print(f'MessageType_call_text: {text}')
         if self.certificate:
             self.certificate = False
             return 'certificate'
