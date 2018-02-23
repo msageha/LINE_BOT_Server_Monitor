@@ -35,8 +35,7 @@ import token_key
 
 from message_process import MessageProcess
 
-# message_process = MessageProcess()
-message_process = ''
+message_process = MessageProcess()
 
 app = Flask(__name__)
 channel_secret = token_key.channel_secret
@@ -78,7 +77,7 @@ def callback():
             continue
         if event.message.text:
             print(event.source.keys())
-            user_id = event.source.userId
+            user_id = event.source.user_id
             text = event.message.text.strip()
             replay = message_process(text, user_id)
             line_bot_api.reply_message(
