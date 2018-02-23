@@ -48,7 +48,6 @@ class Response:
             with open('key.txt', 'w') as f:
                 f.write(str(self.key))
             return self.key, {}
-
         elif request_key == self.key:
             if request_type == 'info':
                 return self.key, self.info()
