@@ -28,7 +28,7 @@ class MessageProcess:
         elif 'key_input' == message_type:
             reply = f'{text} が受取ったキーを入力して'
         elif 'certificate' == message_type:
-            if message_type.key == 0:
+            if self.message_type_dict[user_id].key == 0:
                 reply = 'サーバーが応答しないみたい'
             else:
                 reply = '登録したよ'
