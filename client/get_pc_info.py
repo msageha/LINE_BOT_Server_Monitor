@@ -30,7 +30,7 @@ class Info:
     def measure_volts(self):
         output = subprocess.getoutput('vcgencmd measure_volts')
         volts = self.get_num(output)
-        return str(volts)
+        return str(volts*2.5)
 
     def cpu_used(self):
         cpu_persent = psutil.cpu_percent()
@@ -39,7 +39,7 @@ class Info:
     def memory_info(self):
         mem = psutil.virtual_memory()
         mem_persent = mem.used / mem.total * 100
-        return str(mem_persent)
+        return str(mem_persent)[:3]
 
     def access(self):
         pass

@@ -10,10 +10,14 @@ import sys
 sys.path.append('../protos/')
 import gateway_pb2
 import gateway_pb2_grpc
+import subprocess
 
 from get_pc_info import Info
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
+
+import reading_file
+import request_message
 
 class Monitor(gateway_pb2_grpc.MonitorServicer):
     def __init__(self):
@@ -30,7 +34,7 @@ def serve():
     server.start()
     try:
         while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
+            subprocess.call('tail -f /var/log/auth.log | python reading_file.py')
     except KeyboardInterrupt:
         server.stop(0)
 

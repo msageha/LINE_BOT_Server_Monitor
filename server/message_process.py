@@ -17,13 +17,14 @@ class MessageProcess:
         print(message_type)
         if 'info' == message_type:
             key, response_dict = monitor_grpc_client.run('info', self.message_type_dict[user_id].host)
+            print(key)
             if key == 0:
                 reply = 'サーバが応答しないよ？'
             else:
-                reply = f'CPU: {response_dict["cpu"]}\n'
-                reply += f'メモリ: {response_dict["memory"]}\n'
-                reply += f'温度: {response_dict["temp"]}\n'
-                reply += f'電源: {response_dict["volts"]}\n'
+                reply = f'CPU使用率: {response_dict["cpu"]}%\n'
+                reply += f'メモリ使用率: {response_dict["memory"]}%\n'
+                reply += f'温度: {response_dict["temp"]}度\n'
+                reply += f'電源: {response_dict["volts"]}ワット\n'
                 reply += 'みたいだね'
         elif 'key_input' == message_type:
             reply = f'{text} が受取ったキーを入力して'

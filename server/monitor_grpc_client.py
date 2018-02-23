@@ -24,7 +24,7 @@ def run(request_type, host, port=50051):
         if key == response.key:
             return response.key, response.dict
     except:
-        pass
+        return 0, {}
     return 0, {}
 
 if __name__ == '__main__':

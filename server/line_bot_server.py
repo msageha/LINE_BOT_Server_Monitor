@@ -17,6 +17,8 @@ import os
 import sys
 from argparse import ArgumentParser
 import re
+import urllib
+import urllib.request
 
 from flask import (
     Flask, request, abort
@@ -53,6 +55,25 @@ parser = WebhookParser(channel_secret)
 @app.route("/")
 def hello_world():
   return "Hello World!"
+
+@app.route("/line_message", methods=['POST'])
+def sent_message():
+    body = request.get_data()
+    url = "https://api.line.me/v2/bot/message/push"
+    headers={
+        'Content-type':'application/json',
+        'Authorization': f'Bearer {channel_access_token}'
+    }
+    message = body['message']
+    user_id = body['user_id']
+    json_str = f'''{{"to":"{user_id}",
+        "messages":[
+            {{"type":"text", "text":"{message}"}}
+        ]
+    }}'''
+    req = urllib.request.Request(url=url,headers=headers, data=json_str.encode('utf-8'))
+    f = urllib.request.urlopen(req)
+    print(f.read().decode('utf-8'))
 
 @app.route("/callback", methods=['POST'])
 def callback():
