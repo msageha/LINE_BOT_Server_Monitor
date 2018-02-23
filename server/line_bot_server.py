@@ -70,8 +70,6 @@ def sent_message():
         'Content-type':'application/json',
         'Authorization': f'Bearer {channel_access_token}'
     }
-    message = body['message']
-    user_id = body['user_id']
     json_str = f'''{{"to":"{user_id}",
         "messages":[
             {{"type":"text", "text":"{message}"}}
