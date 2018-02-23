@@ -10,7 +10,7 @@ def read_file_continue():
         if 'sshd' in line:
             if 'Failed password' in line:
                 failed_continue_times += 1
-                if failed_continue_times == 3:
+                if failed_continue_times == 2:
                     if len(line.split()) < 14:
                         user_name = line.split()[8]
                         from_ip = line.split()[10]

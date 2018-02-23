@@ -34,7 +34,8 @@ def serve():
     server.start()
     try:
         while True:
-            subprocess.call('tail -f /var/log/auth.log | python reading_file.py')
+            time.sleep(_ONE_DAY_IN_SECONDS)
+            # subprocess.call('tail -f /var/log/auth.log | python3 /home/pi/Desktop/LINE_BOT_Server_Monitor/client/reading_file.py')
     except KeyboardInterrupt:
         server.stop(0)
 

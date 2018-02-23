@@ -52,13 +52,19 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
+def extract_message_user_id(text):
+    searched = re.search(r'message=(.*)&user_id=(.*)', text)
+    message, user_id = searched.groups()
+    return message, user_id
+
 @app.route("/")
 def hello_world():
   return "Hello World!"
 
 @app.route("/line_message", methods=['POST'])
 def sent_message():
-    body = request.get_data()
+    body = request.get_data().decode('utf8')
+    message, user_id = extract_message_user_id(body)
     url = "https://api.line.me/v2/bot/message/push"
     headers={
         'Content-type':'application/json',
