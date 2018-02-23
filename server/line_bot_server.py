@@ -76,7 +76,6 @@ def callback():
         if not isinstance(event.message, TextMessage):
             continue
         if event.message.text:
-            print(event.source.keys())
             user_id = event.source.user_id
             text = event.message.text.strip()
             replay = message_process(text, user_id)
