@@ -15,6 +15,7 @@ def read_file_continue():
                         user_name = line.split()[8]
                         from_ip = line.split()[10]
                         text = f'{from_ip} が{user_name}の認証失敗したよ'
+                        print(text)
                         request_message.send_message(text)
             else:
                 failed_continue_times = 0
@@ -23,4 +24,5 @@ def read_file_continue():
                     user_name = line.split()[8]
                     from_ip = line.split()[10]
                     text = f'{user_name}が{from_ip}からログインしたよ'
+                    print(text)
                     request_message.send_message(text)
