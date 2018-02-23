@@ -26,3 +26,6 @@ def read_file_continue():
                     text = f'{user_name}が{from_ip}からログインしたよ'
                     print(text)
                     request_message.send_message(text)
+
+if __name__ =='__main__':
+    read_file_continue()
