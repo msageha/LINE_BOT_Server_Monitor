@@ -5,9 +5,10 @@ def read_file_continue():
     failed_continue_times = 0
     while True:
         line = sys.stdin.readline()
-        print(line, end='')
+        # print(line, end='')
         #Oct  8 09:08:25 raspberrypi sshd[10358]: Failed password for root from 186.42.238.101 port 38352 ssh2
         if 'sshd' in line:
+            print(line)
             if 'Failed password' in line:
                 failed_continue_times += 1
                 if failed_continue_times == 2:
