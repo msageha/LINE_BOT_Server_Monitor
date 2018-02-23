@@ -32,7 +32,10 @@ from linebot.models import (
 )
 
 import token_key
-from predict import Predict
+
+from message_process import MessageProcess
+
+message_process = MessageProcess()
 
 app = Flask(__name__)
 channel_secret = token_key.channel_secret
@@ -46,7 +49,6 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
-predict = Predict(model_file='model/2018-02-22 13:39:42_epoch-9.npz', gpu=0)
 
 @app.route("/")
 def hello_world():
