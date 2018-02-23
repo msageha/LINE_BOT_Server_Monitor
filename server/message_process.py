@@ -16,6 +16,7 @@ class MessageProcess:
         print(f'MessageProcess_call_text: {text}')
         print(message_type)
         if 'info' == message_type:
+            key = 0
             key, response_dict = monitor_grpc_client.run('info', self.message_type_dict[user_id].host)
             print(key)
             if key == 0:
