@@ -79,6 +79,7 @@ def sent_message():
     req = urllib.request.Request(url=url,headers=headers, data=json_str.encode('utf-8'))
     f = urllib.request.urlopen(req)
     print(f.read().decode('utf-8'))
+    return 'OK'
 
 @app.route("/callback", methods=['POST'])
 def callback():
