@@ -13,6 +13,7 @@ class MessageProcess:
         if not self.message_type_dict.get(user_id):
             self.message_type_dict[user_id] = MessageType(user_id, '')
         message_type = self.message_type_dict[user_id](text)
+        print(message_type)
         if 'info' == message_type:
             key, response_dict = monitor_grpc_client.run('info', message_type.host)
             if key == 0:

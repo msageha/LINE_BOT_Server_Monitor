@@ -35,7 +35,8 @@ import token_key
 
 from message_process import MessageProcess
 
-message_process = MessageProcess()
+# message_process = MessageProcess()
+message_process = ''
 
 app = Flask(__name__)
 channel_secret = token_key.channel_secret
@@ -76,6 +77,7 @@ def callback():
         if not isinstance(event.message, TextMessage):
             continue
         if event.message.text:
+            print(event.source.keys())
             user_id = event.source.userId
             text = event.message.text.strip()
             replay = message_process(text, user_id)
@@ -95,4 +97,3 @@ if __name__ == "__main__":
     args = arg_parser.parse_args()
 
     app.run(debug=args.debug, port=args.port)
-    
