@@ -78,7 +78,7 @@ def callback():
         if event.message.text:
             user_id = event.source.user_id
             text = event.message.text.strip()
-            replay = message_process(text, user_id)
+            replay = message_process(user_id, text)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=replay)
