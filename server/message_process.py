@@ -16,7 +16,7 @@ class MessageProcess:
         print(f'MessageProcess_call_text: {text}')
         print(message_type)
         if 'info' == message_type:
-            key, response_dict = monitor_grpc_client.run('info', message_type.host)
+            key, response_dict = monitor_grpc_client.run('info', self.message_type_dict[user_id].host)
             if key == 0:
                 reply = 'サーバが応答しないよ？'
             else:
